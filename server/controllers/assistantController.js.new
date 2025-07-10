@@ -1,0 +1,167 @@
+const User = require('../models/User');
+const { getGeminiResponse } = require('../services/geminiAIService');
+
+// Simple in-memory cache for storing recent conversations
+// In a production app, consider using Redis or a database
+const conversationCache = new Map();
+
+// Clear old conversations periodically
+setInterval(() => {
+  const oneHourAgo = Date.now() - 3600000;
+  for (const [userId, conversation] of conversationCache.entries()) {
+    if (conversation.lastUpdated < oneHourAgo) {
+      conversationCache.delete(userId);
+    }
+  }
+}, 3600000); // Clean up every hour
+
+/**
+ * Handle chatbot messages and generate responses
+ * @route POST /api/assistant/chat
+ * @access Public
+ */
+exports.chatWithAssistant = async (req, res) => {
+  try {
+    const { message } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({ success: false, error: 'Message is required' });
+    }
+    
+    // Get user ID from authenticated user or create a guest ID
+    let userId;
+    let user = req.user;
+    
+    if (user) {
+      userId = user.id;
+    } else {
+      // For unauthenticated users, return a message that login is required
+      return res.status(403).json({ 
+        success: false, 
+        error: 'Login required to use the assistant feature'
+      });
+    }
+
+    // Get or initialize user's conversation history
+    if (!conversationCache.has(userId)) {
+      conversationCache.set(userId, {
+        messages: [],
+        lastUpdated: Date.now()
+      });
+    }
+    
+    const conversation = conversationCache.get(userId);
+    conversation.messages.push({ role: 'user', content: message });
+    conversation.lastUpdated = Date.now();
+    
+    // Keep conversation history limited to last 10 messages
+    if (conversation.messages.length > 10) {
+      conversation.messages = conversation.messages.slice(-10);
+    }
+    
+    // Process the message and generate a response
+    const response = await generateResponse(message, user, conversation.messages);
+    
+    // Add the response to conversation history
+    conversation.messages.push({ role: 'assistant', content: response });
+    
+    return res.status(200).json({ success: true, reply: response });
+  } catch (error) {
+    console.error('Chatbot error:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Failed to process your message' 
+    });
+  }
+};
+
+/**
+ * Generate a response based on user message and context using Gemini AI
+ */
+async function generateResponse(message, user, conversationHistory) {
+  try {
+    // Get user name or default to 'there' if user object is not available
+    const userName = user && user.name ? user.name : 'there';
+    
+    // Format conversation history for Gemini
+    const formattedHistory = conversationHistory.map(msg => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      content: msg.content
+    }));
+    
+    // Extract user context if available
+    const userContext = {
+      name: userName,
+      location: user?.location || 'India',
+      preferredLanguage: user?.language || 'English',
+      farmingType: user?.farmingType || 'General'
+    };
+    
+    // Use Gemini to generate response
+    const response = await getGeminiResponse(message, formattedHistory, userContext);
+    return response;
+    
+  } catch (error) {
+    console.error('Error generating AI response:', error);
+    
+    // Fallback to rule-based system if AI fails
+    const normalizedMessage = message.toLowerCase();
+    const userName = user && user.name ? user.name : 'there';
+    
+    // Fallback responses based on keywords
+    if (normalizedMessage.includes('weather') || normalizedMessage.includes('rain') || normalizedMessage.includes('temperature')) {
+      return "You can check detailed weather information on our Weather page. It provides current conditions and forecasts.";
+    }
+    
+    if (normalizedMessage.includes('crop') || normalizedMessage.includes('farming') || normalizedMessage.includes('plant')) {
+      return "For crop information, check our Learning Hub which has guides on various crops suitable for your region.";
+    }
+    
+    if (normalizedMessage.includes('scheme') || normalizedMessage.includes('subsidy') || normalizedMessage.includes('government')) {
+      return "We have information about various government schemes and subsidies for farmers on our Schemes page.";
+    }
+    
+    if (normalizedMessage.includes('hello') || normalizedMessage.includes('hi')) {
+      return `Hello ${userName}! How can I assist you with farming today?`;
+    }
+    
+    return "I'm here to help with farming, agriculture, weather forecasts, and government schemes. How can I assist you today?";
+  }
+}
+
+/**
+ * Clear chat history for a user
+ * @route DELETE /api/assistant/chat
+ * @access Public
+ */
+exports.clearChatHistory = async (req, res) => {
+  try {
+    // Get user ID from authenticated user 
+    let userId;
+    
+    if (req.user) {
+      userId = req.user.id;
+    } else {
+      // For unauthenticated users, return error
+      return res.status(403).json({ 
+        success: false, 
+        error: 'Login required to use the assistant feature'
+      });
+    }
+    
+    if (conversationCache.has(userId)) {
+      conversationCache.delete(userId);
+    }
+    
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Chat history cleared successfully' 
+    });
+  } catch (error) {
+    console.error('Error clearing chat history:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: 'Failed to clear chat history' 
+    });
+  }
+};

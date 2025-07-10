@@ -1,0 +1,247 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "weather": "Weather",
+    "schemes": "Schemes",
+    "assistant": "Assistant",
+    "cropHealth": "Crop Health",
+    "login": "Login"
+  },
+  "weather": {
+    "title": "Current Weather",
+    "temp": "Temperature",
+    "humidity": "Humidity",
+    "wind": "Wind Speed",
+    "pageTitle": "Weather Forecast",
+    "pageDescription": "Get accurate weather information for your farming needs",
+    "forecast": "5-Day Forecast",
+    "searchPlaceholder": "Search city...",
+    "recentSearches": "Recent Searches",
+    "weatherNews": "Weather News"
+  },
+  "schemes": {
+    "title": "Government Schemes",
+    "featuresTitle": "Key Features of Our Agricultural Schemes Portal",
+    "learnMore": "Learn More About Schemes",
+    "features": {
+      "eligibility": "Eligibility Check",
+      "eligibilityDesc": "Check your eligibility for various agricultural schemes based on your location and farm details",
+      "updates": "Latest Updates",
+      "updatesDesc": "Stay updated with the latest agricultural schemes and policy changes",
+      "application": "Application Guide",
+      "applicationDesc": "Simple guides on how to apply for agricultural schemes with required document lists",
+      "tracking": "Application Tracking",
+      "trackingDesc": "Track the status of your scheme applications through our platform"
+    }
+  },
+  "cropHealth": {
+    "title": "Crop Health Monitoring",
+    "description": "Upload images of your crops to analyze their health, identify potential diseases, and receive fertilizer recommendations.",
+    "uploadTitle": "Upload Crop Image",
+    "cropType": "Crop Type",
+    "cropTypePlaceholder": "E.g., Rice, Wheat, Cotton",
+    "specifyType": "Please specify the type of crop for more accurate analysis",
+    "selectImage": "Select Image",
+    "clickToUpload": "Click to upload",
+    "imageFormats": "PNG, JPG or JPEG",
+    "preview": "Image Preview",
+    "analyzeButton": "Analyze Crop",
+    "analyzing": "Analyzing...",
+    "processingImage": "Processing your image...",
+    "resultsTitle": "Analysis Results",
+    "noResults": "Upload a crop image to see analysis results",
+    "diagnosis": "Diagnosis",
+    "statusHealthy": "Healthy",
+    "statusModerate": "Moderately Affected",
+    "statusUnhealthy": "Unhealthy",
+    "identifiedDisease": "Identified Disease",
+    "recommendations": "Recommendations",
+    "suggestedFertilizers": "Suggested Fertilizers",
+    "error": "Error",
+    "diseaseDescription": "Disease Description",
+    "previousAnalysis": "Previous Analysis Records",
+    "noRecords": "No analysis records found",
+    "uploadFirst": "Upload a crop image to create your first record",
+    "viewDetails": "View Details",
+    "backToList": "Back to Crop Health",
+    "recordNotFound": "Record Not Found",
+    "recordNotFoundMessage": "The requested crop health record could not be found"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "village": "Village",
+    "district": "District",
+    "state": "State",
+    "phone": "Phone Number",
+    "primaryCrop": "Primary Crop",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "googleSignIn": "Sign in with Google",
+    "googleSignUp": "Sign up with Google",
+    "welcomeBack": "Welcome back!",
+    "createAccount": "Create your account",
+    "personalInfo": "Personal Information",
+    "farmInfo": "Farm Information",
+    "requiredFields": "Required fields",
+    "terms": "I agree to the Terms of Service and Privacy Policy"
+  },
+  "dashboard": {
+    "title": "Welcome,",
+    "info": "Your Information",
+    "quickAccess": "Quick Access",
+    "profile": "Profile",
+    "update": "Update Profile"
+  },
+  "chatbot": {
+    "title": "KrishiMitra Assistant",
+    "welcome": "Hello! I am KrishiMitra, your farming assistant. How can I help you today?",
+    "placeholder": "Type your question...",
+    "error": "Sorry, I encountered an error. Please try again later."
+  },
+  "assistant": {
+    "title": "Farming Assistant",
+    "description": {
+      "title": "How can our assistant help you?",
+      "content": "Our AI-powered farming assistant can help answer your questions about crop management, weather forecasts, government schemes, market prices, pest control, and more. Just ask any farming-related question in the chat window."
+    },
+    "features": {
+      "instant": "Instant Answers",
+      "instantDesc": "Get immediate responses to your farming queries",
+      "multilingual": "Multilingual Support",
+      "multilingualDesc": "Communicate in your preferred language",
+      "personalized": "Personalized Advice",
+      "personalizedDesc": "Get recommendations based on your location and needs",
+      "knowledge": "Agricultural Knowledge",
+      "knowledgeDesc": "Access to extensive farming knowledge and best practices"
+    },
+    "faqTitle": "Frequently Asked Questions",
+    "faq": {
+      "weather": "How do I check weather forecasts?",
+      "weatherAnswer": "You can check detailed weather forecasts on our Weather page, which provides current conditions and a 7-day forecast for your location.",
+      "crops": "What crops should I plant this season?",
+      "cropsAnswer": "The best crops to plant depend on your soil type, climate, and the current season. Our assistant can provide recommendations based on your specific location.",
+      "schemes": "How do I apply for government schemes?",
+      "schemesAnswer": "Visit our Schemes page to see all available government schemes and subsidies. Each scheme has detailed information about eligibility criteria and application procedures.",
+      "market": "Where can I check current crop prices?",
+      "marketAnswer": "You can find current market prices for various crops in our Market section. We update prices daily from major agricultural markets across the country.",
+      "pests": "How do I deal with crop pests?",
+      "pestsAnswer": "For pest management, use our Learning Hub which has guides on common crop diseases and pests, along with organic and chemical control methods."
+    }
+  },
+  "loading": "Loading",
+  "welcome": "Welcome, Farmers!",
+  "description": "Access schemes, weather forecasts, and agricultural resources tailored for you.",
+  "home": {
+    "tagline": "Your one-stop solution for agricultural information and support",
+    "exploreSchemes": "Explore Schemes",
+    "askAssistant": "Ask Assistant",
+    "featuresTitle": "Why Choose KrishiBandhu",
+    "welcomeBack": "Welcome back to your agricultural companion",
+    "quickActions": "Quick Actions",
+    "viewSchemes": "View Schemes",
+    "checkWeather": "Check Weather",
+    "chatWithAssistant": "Chat with Assistant",
+    "feature1": {
+      "title": "Government Schemes & Subsidies",
+      "description": "Access all government agriculture schemes in one place with eligibility criteria and application support."
+    },
+    "feature2": {
+      "title": "Weather Forecasts & Alerts",
+      "description": "Get accurate weather forecasts and timely alerts specific to your farming location."
+    },
+    "feature3": {
+      "title": "AI Farming Assistant",
+      "description": "Get instant answers to your farming queries from our intelligent farming assistant."
+    },
+    "testimonialTitle": "What Farmers Say About Us",
+    "testimonial1": {
+      "quote": "KrishiBandhu has transformed how I manage my farm. The weather alerts and scheme information are invaluable!",
+      "author": "Ramesh Singh, Wheat Farmer"
+    },
+    "testimonial2": {
+      "quote": "The AI assistant helped me identify a pest problem quickly and saved my crop. Highly recommend!",
+      "author": "Sunita Patel, Organic Farmer"
+    },
+    "testimonial3": {
+      "quote": "I received a loan through a government scheme I found on KrishiBandhu. The application process was smooth with their guidance.",
+      "author": "Mahesh Kumar, Rice Farmer"
+    },
+    "statsTitle": "Our Impact",
+    "stats": {
+      "farmers": "10,000+ Farmers",
+      "schemes": "200+ Schemes",
+      "states": "28 States Covered"
+    },
+    "ctaTitle": "Join Our Farming Community Today",
+    "ctaText": "Register now to access personalized agricultural information and support.",
+    "ctaButton": "Register Now"
+  },
+  "about": {
+    "title": "About KrishiBandhu",
+    "subtitle": "Empowering Farmers Across India",
+    "mission": {
+      "title": "Our Mission",
+      "description": "KrishiBandhu aims to bridge the information gap faced by farmers in India by providing easy access to essential agricultural information, government schemes, weather updates, and expert advice."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To create a digitally empowered farming community in India that can make informed decisions to improve agricultural productivity and economic well-being."
+    },
+    "story": {
+      "title": "Our Story",
+      "description": "Founded in 2023, KrishiBandhu was born from a simple observation: despite numerous government initiatives, many farmers lack access to information about schemes and modern farming practices. Our platform brings together all these resources in one place, in languages farmers understand."
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "description": "Our team consists of agricultural experts, technologists, and rural development professionals passionate about improving Indian agriculture.",
+      "members": {
+        "member1": {
+          "name": "Ananya Sharma",
+          "role": "Founder & CEO",
+          "bio": "Agricultural economist with 10+ years of experience working with farming communities"
+        },
+        "member2": {
+          "name": "Vikram Patel",
+          "role": "CTO",
+          "bio": "Technology expert focused on developing solutions for rural challenges"
+        },
+        "member3": {
+          "name": "Dr. Sunita Rao",
+          "role": "Agricultural Advisor",
+          "bio": "PhD in Agricultural Sciences with expertise in sustainable farming practices"
+        }
+      }
+    },
+    "approach": {
+      "title": "Our Approach",
+      "point1": {
+        "title": "Accessible Information",
+        "description": "Making complex agricultural information simple and accessible in regional languages"
+      },
+      "point2": {
+        "title": "Technology + Traditional Knowledge",
+        "description": "Combining modern technology with traditional farming knowledge for better results"
+      },
+      "point3": {
+        "title": "Community-Centered",
+        "description": "Building a supportive community where farmers can share knowledge and experiences"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "email": "info@krishibandhu.org",
+      "phone": "+91 98765 43210",
+      "address": "123 Farming Avenue, Agri Tech Park, New Delhi - 110001"
+    }
+  }
+}

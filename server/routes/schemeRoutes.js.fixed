@@ -1,0 +1,19 @@
+// filepath: d:\Krishibandhu - Copy\server\routes\schemeRoutes.js
+const express = require("express");
+const router = express.Router();
+const { protect, restrictToAdmin } = require("../middleware/authMiddleware");
+const schemeController = require("../controllers/schemeController");
+
+// Public route to get schemes
+router.get("/", schemeController.getSchemes);
+
+// Protected admin routes for scheme management
+router.post("/", protect, restrictToAdmin, schemeController.createScheme);
+router.put("/:id", protect, restrictToAdmin, schemeController.updateScheme);
+router.delete("/:id", protect, restrictToAdmin, schemeController.deleteScheme);
+
+// Protected routes for users to save schemes
+router.post("/save/:id", protect, schemeController.saveScheme);
+router.get("/saved", protect, schemeController.getSavedSchemes);
+
+module.exports = router;
