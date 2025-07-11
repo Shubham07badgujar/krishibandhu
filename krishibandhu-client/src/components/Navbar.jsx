@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useEcommerce } from "../context/EcommerceContext";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import NotificationBell from "../features/notifications/components/NotificationBell";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { cartCount } = useEcommerce();
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [language, setLanguage] = useState(i18n.language || "en");
@@ -33,7 +35,60 @@ const Navbar = () => {
 
         <nav className="flex items-center space-x-6 text-sm font-medium text-gray-700">
           <Link to="/">{t("navbar.home")}</Link>
-          <Link to="/about">{t("navbar.about")}</Link>          {user && (            <>              <Link to="/dashboard">{t("navbar.dashboard")}</Link>
+          <Link to="/about">{t("navbar.about")}</Link>
+          
+          {/* E-commerce Links */}
+          <Link to="/buy" className="flex items-center hover:text-green-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+            Buy
+          </Link>
+          
+          <Link to="/sell-products" className="flex items-center hover:text-green-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.001 3.001 0 01-.621-1.72C2.108 6.389 2.1 5.29 2.1 4.25A2.25 2.25 0 014.35 2h15.3a2.25 2.25 0 012.25 2.25c0 1.04-.008 2.139-.128 3.18a3.001 3.001 0 01-.621 1.72m-16.5 0h16.5" />
+            </svg>
+            From Farmers
+          </Link>
+          
+          {user && (
+            <Link to="/sell" className="flex items-center hover:text-green-600 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Sell
+            </Link>
+          )}
+          
+          {/* Cart Icon with Count - Only show if user is logged in */}
+          {user && (
+            <Link to="/cart" className="relative flex items-center hover:text-green-600 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
+            </Link>
+          )}
+          
+          {user && (
+            <>              <Link to="/dashboard">{t("navbar.dashboard")}</Link>
+              <Link to="/ecommerce-dashboard" className="flex items-center hover:text-green-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1.5 1.5m7.5-1.5l1.5 1.5m0 0L21 21l-6-6m6 6l-6-6" />
+                </svg>
+                E-Commerce
+              </Link>
+              <Link to="/orders" className="flex items-center hover:text-green-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m0 0a1.125 1.125 0 011.125-1.125h17.25a1.125 1.125 0 011.125 1.125v4.5z" />
+                </svg>
+                Orders
+              </Link>
               <Link to="/schemes">{t("navbar.schemes")}</Link>
               <Link to="/loans" className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1">

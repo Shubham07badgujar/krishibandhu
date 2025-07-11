@@ -21,7 +21,17 @@ import CropHealthDetail from "./features/cropHealth/CropHealthDetail";
 import CropHealthRecord from "./features/cropHealth/CropHealthRecord";
 import LoansPage from "./features/loans/pages/LoansPage";
 import NotificationsPage from "./features/notifications/pages/NotificationsPage";
+import BuyPage from "./pages/BuyPage";
+import SellProductsPage from "./pages/SellProductsPage";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import EcommerceDashboard from "./pages/EcommerceDashboard";
+import AddProductForm from "./components/ecommerce/AddProductForm";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { EcommerceProvider } from "./context/EcommerceContext";
+import { Toaster } from 'react-hot-toast';
 import OriginDebugger from "./components/OriginDebugger";
 
 function App() {
@@ -34,69 +44,131 @@ function App() {
       onScriptLoadError={() => console.error("Google OAuth script failed to load")}
       onScriptLoadSuccess={() => console.log("Google OAuth script loaded successfully")}
     >
-      <NotificationProvider>
-        <div className="bg-green-50 min-h-screen">
-          <Navbar />
-          {showDebug && <OriginDebugger />}
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutUsPage />} />
-            <Route path="/weather" element={
-              <PrivateRoute>
-                <WeatherPage />
-              </PrivateRoute>
-            } />
-            <Route path="/schemes" element={<SchemesPage />} />
-            <Route path="/loans" element={
-              <PrivateRoute>
-                <LoansPage />
-              </PrivateRoute>
-            } />
-            <Route path="/admin/schemes" element={
-              <AdminRoute>
-                <AdminSchemeDashboard />
-              </AdminRoute>
-            } />
-            <Route path="/admin/loans" element={
-              <AdminRoute>
-                <AdminLoanDashboard />
-              </AdminRoute>
-            } />
-            <Route path="/dashboard" element={
-              <PrivateRoute>
-                <UserDashboard />
-              </PrivateRoute>
-            } />
-            <Route path="/assistant" element={
-              <PrivateRoute>
-                <AssistantPage />
-              </PrivateRoute>
-            } />
-            <Route path="/crop-health" element={
-              <PrivateRoute>
-                <CropHealthPage />
-              </PrivateRoute>
-            } />            <Route path="/crop-health/:recordId" element={
-              <PrivateRoute>
-                <CropHealthDetail />
-              </PrivateRoute>
-            } />
-            
-            <Route path="/notifications" element={
-              <PrivateRoute>
-                <NotificationsPage />
-              </PrivateRoute>
-            } />
+      <EcommerceProvider>
+        <NotificationProvider>
+          <div className="bg-green-50 min-h-screen">
+            <Navbar />
+            {showDebug && <OriginDebugger />}
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutUsPage />} />
+              <Route path="/weather" element={
+                <PrivateRoute>
+                  <WeatherPage />
+                </PrivateRoute>
+              } />
+              <Route path="/schemes" element={<SchemesPage />} />
+              <Route path="/loans" element={
+                <PrivateRoute>
+                  <LoansPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/schemes" element={
+                <AdminRoute>
+                  <AdminSchemeDashboard />
+                </AdminRoute>
+              } />
+              <Route path="/admin/loans" element={
+                <AdminRoute>
+                  <AdminLoanDashboard />
+                </AdminRoute>
+              } />
+              <Route path="/dashboard" element={
+                <PrivateRoute>
+                  <UserDashboard />
+                </PrivateRoute>
+              } />
+              <Route path="/assistant" element={
+                <PrivateRoute>
+                  <AssistantPage />
+                </PrivateRoute>
+              } />
+              <Route path="/crop-health" element={
+                <PrivateRoute>
+                  <CropHealthPage />
+                </PrivateRoute>
+              } />            <Route path="/crop-health/:recordId" element={
+                <PrivateRoute>
+                  <CropHealthDetail />
+                </PrivateRoute>
+              } />
+              
+              <Route path="/notifications" element={
+                <PrivateRoute>
+                  <NotificationsPage />
+                </PrivateRoute>
+              } />
 
-            {/* Add more routes like /schemes, /shop, etc. later */}
-          </Routes>
-          
-          {/* ChatBot that appears on all pages except login/register */}
-          <ChatBotLoader />
-        </div>
-      </NotificationProvider>
+              {/* E-commerce Routes */}
+              <Route path="/buy" element={<BuyPage />} />
+              <Route path="/sell-products" element={<SellProductsPage />} />
+              <Route path="/cart" element={
+                <PrivateRoute>
+                  <CartPage />
+                </PrivateRoute>
+              } />
+              <Route path="/sell" element={
+                <PrivateRoute>
+                  <AddProductForm />
+                </PrivateRoute>
+              } />
+              <Route path="/checkout" element={
+                <PrivateRoute>
+                  <CheckoutPage />
+                </PrivateRoute>
+              } />
+              <Route path="/orders" element={
+                <PrivateRoute>
+                  <OrdersPage />
+                </PrivateRoute>
+              } />
+              <Route path="/order-confirmation" element={
+                <PrivateRoute>
+                  <OrderConfirmationPage />
+                </PrivateRoute>
+              } />
+              <Route path="/ecommerce-dashboard" element={
+                <PrivateRoute>
+                  <EcommerceDashboard />
+                </PrivateRoute>
+              } />
+
+              {/* Add more routes like /schemes, /shop, etc. later */}
+            </Routes>
+            
+            {/* ChatBot that appears on all pages except login/register */}
+            <ChatBotLoader />
+            
+            {/* Toast notifications */}
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: '#363636',
+                  color: '#fff',
+                },
+                success: {
+                  duration: 3000,
+                  iconTheme: {
+                    primary: '#4aed88',
+                    secondary: '#fff',
+                  },
+                },
+                error: {
+                  duration: 4000,
+                  iconTheme: {
+                    primary: '#ff6b6b',
+                    secondary: '#fff',
+                  },
+                },
+              }}
+            />
+          </div>
+        </NotificationProvider>
+      </EcommerceProvider>
     </GoogleOAuthProvider>
   );
 }
