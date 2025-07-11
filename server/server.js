@@ -20,6 +20,7 @@ const fs = require('fs');
 const path = require('path');
 const uploadsDir = path.join(__dirname, 'uploads');
 const cropUploadsDir = path.join(__dirname, 'uploads/crops');
+const productUploadsDir = path.join(__dirname, 'uploads/products');
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
@@ -27,6 +28,10 @@ if (!fs.existsSync(uploadsDir)) {
 
 if (!fs.existsSync(cropUploadsDir)) {
   fs.mkdirSync(cropUploadsDir, { recursive: true });
+}
+
+if (!fs.existsSync(productUploadsDir)) {
+  fs.mkdirSync(productUploadsDir, { recursive: true });
 }
 
 // Serve uploads directory statically
@@ -56,6 +61,12 @@ app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/assistant", require("./routes/assistantRoutes"));
 app.use("/api/crop-health", require("./routes/cropHealthRoutes"));
 app.use("/api/loans", require("./routes/loanRoutes"));
+
+// E-commerce routes
+app.use("/api/products", require("./routes/productRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
+app.use("/api/cart", require("./routes/cartRoutes"));
+app.use("/api/ecommerce", require("./routes/ecommerceRoutes"));
 
 
 
