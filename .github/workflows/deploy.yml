@@ -19,13 +19,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: server/package-lock.json
     
     - name: Install Backend Dependencies
       run: |
         cd server
-        npm ci
+        npm install
     
     - name: Deploy Backend to Vercel
       uses: amondnet/vercel-action@v25
@@ -49,13 +47,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: krishibandhu-client/package-lock.json
     
     - name: Install Frontend Dependencies
       run: |
         cd krishibandhu-client
-        npm ci
+        npm install
     
     - name: Build Frontend
       run: |

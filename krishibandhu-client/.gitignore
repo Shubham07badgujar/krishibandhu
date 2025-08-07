@@ -32,6 +32,8 @@ dist-ssr
 .env.production
 .next
 '
+
+.env.example
 # === Node.js ===
 node_modules/
 npm-debug.log*
