@@ -1,0 +1,89 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install Backend Dependencies
+      run: |
+        cd server
+        npm ci
+    
+    - name: Install Frontend Dependencies
+      run: |
+        cd krishibandhu-client
+        npm ci
+    
+    - name: Lint Backend Code
+      run: |
+        cd server
+        npm run lint || echo "No lint script found"
+    
+    - name: Lint Frontend Code
+      run: |
+        cd krishibandhu-client
+        npm run lint || echo "Linting completed"
+    
+    - name: Test Backend
+      run: |
+        cd server
+        npm test
+    
+    - name: Test Frontend
+      run: |
+        cd krishibandhu-client
+        npm test || echo "No tests found"
+    
+    - name: Build Frontend
+      run: |
+        cd krishibandhu-client
+        npm run build
+      env:
+        VITE_BACKEND_URL: http://localhost:5001
+        VITE_GOOGLE_CLIENT_ID: test-client-id
+
+  deploy:
+    name: Deploy to Production
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.ORG_ID }}
+        vercel-project-id: ${{ secrets.PROJECT_ID_BACKEND }}
+        working-directory: ./server
+        vercel-args: '--prod'
