@@ -32,10 +32,6 @@ if (!fs.existsSync(cropUploadsDir)) {
 // Serve uploads directory statically
 app.use('/uploads', express.static('uploads'));
 
-// Test routes - NO AUTH REQUIRED
-// IMPORTANT: Remove in production
-app.use('/test', require('./test-routes'));
-
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, {
